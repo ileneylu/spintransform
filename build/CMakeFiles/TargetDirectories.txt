@@ -1,0 +1,12 @@
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/CMakeFiles/spinxform.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/CMakeFiles/rebuild_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/CMakeFiles/edit_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/CMakeFiles/core.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glad/CMakeFiles/rebuild_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glad/CMakeFiles/edit_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glad/CMakeFiles/glad.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glfw/CMakeFiles/rebuild_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glfw/CMakeFiles/edit_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glfw/src/CMakeFiles/rebuild_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glfw/src/CMakeFiles/edit_cache.dir
+/Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/build/glfw/src/CMakeFiles/glfw.dir

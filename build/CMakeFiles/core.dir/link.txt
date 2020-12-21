@@ -1,0 +1,1 @@
+/usr/bin/libtool -c -static -o libcore.a  CMakeFiles/core.dir/src/EigenSolver.cpp.o CMakeFiles/core.dir/src/Image.cpp.o CMakeFiles/core.dir/src/LinearSolver.cpp.o CMakeFiles/core.dir/src/Mesh.cpp.o CMakeFiles/core.dir/src/Quaternion.cpp.o CMakeFiles/core.dir/src/QuaternionMatrix.cpp.o CMakeFiles/core.dir/src/Vector.cpp.o CMakeFiles/core.dir/src/Viewer.cpp.o 
