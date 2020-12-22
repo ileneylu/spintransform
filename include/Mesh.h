@@ -68,6 +68,8 @@ class Mesh
 
    protected:
 
+      bool hasBoundary;
+
       vector<Quaternion> lambda;
       // local similarity transformation (one value per vertex)
       vector<double> a;

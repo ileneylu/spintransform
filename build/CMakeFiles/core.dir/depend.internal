@@ -320,65 +320,47 @@ CMakeFiles/core.dir/src/Mesh.cpp.o
  ../libigl/cmake/../include/igl/SortableRow.h
  ../libigl/cmake/../include/igl/accumarray.cpp
  ../libigl/cmake/../include/igl/accumarray.h
- ../libigl/cmake/../include/igl/basename.cpp
- ../libigl/cmake/../include/igl/basename.h
- ../libigl/cmake/../include/igl/boundary_facets.cpp
- ../libigl/cmake/../include/igl/boundary_facets.h
+ ../libigl/cmake/../include/igl/boundary_loop.cpp
+ ../libigl/cmake/../include/igl/boundary_loop.h
  ../libigl/cmake/../include/igl/colon.cpp
  ../libigl/cmake/../include/igl/colon.h
- ../libigl/cmake/../include/igl/dirname.cpp
- ../libigl/cmake/../include/igl/dirname.h
- ../libigl/cmake/../include/igl/face_occurrences.cpp
- ../libigl/cmake/../include/igl/face_occurrences.h
- ../libigl/cmake/../include/igl/find.cpp
- ../libigl/cmake/../include/igl/find.h
+ ../libigl/cmake/../include/igl/cumsum.cpp
+ ../libigl/cmake/../include/igl/cumsum.h
+ ../libigl/cmake/../include/igl/deprecated.h
  ../libigl/cmake/../include/igl/get_seconds.cpp
  ../libigl/cmake/../include/igl/get_seconds.h
  ../libigl/cmake/../include/igl/igl_inline.h
+ ../libigl/cmake/../include/igl/is_border_vertex.cpp
+ ../libigl/cmake/../include/igl/is_border_vertex.h
  ../libigl/cmake/../include/igl/list_to_matrix.cpp
  ../libigl/cmake/../include/igl/list_to_matrix.h
- ../libigl/cmake/../include/igl/matrix_to_list.cpp
- ../libigl/cmake/../include/igl/matrix_to_list.h
  ../libigl/cmake/../include/igl/max_size.cpp
  ../libigl/cmake/../include/igl/max_size.h
  ../libigl/cmake/../include/igl/min_size.cpp
  ../libigl/cmake/../include/igl/min_size.h
+ ../libigl/cmake/../include/igl/oriented_facets.cpp
+ ../libigl/cmake/../include/igl/oriented_facets.h
  ../libigl/cmake/../include/igl/parallel_for.h
- ../libigl/cmake/../include/igl/pathinfo.cpp
- ../libigl/cmake/../include/igl/pathinfo.h
- ../libigl/cmake/../include/igl/polygon_mesh_to_triangle_mesh.cpp
- ../libigl/cmake/../include/igl/polygon_mesh_to_triangle_mesh.h
- ../libigl/cmake/../include/igl/readMESH.cpp
- ../libigl/cmake/../include/igl/readMESH.h
  ../libigl/cmake/../include/igl/readOBJ.cpp
  ../libigl/cmake/../include/igl/readOBJ.h
- ../libigl/cmake/../include/igl/readOFF.cpp
- ../libigl/cmake/../include/igl/readOFF.h
- ../libigl/cmake/../include/igl/readPLY.cpp
- ../libigl/cmake/../include/igl/readPLY.h
- ../libigl/cmake/../include/igl/readSTL.cpp
- ../libigl/cmake/../include/igl/readSTL.h
- ../libigl/cmake/../include/igl/readWRL.cpp
- ../libigl/cmake/../include/igl/readWRL.h
- ../libigl/cmake/../include/igl/read_triangle_mesh.cpp
- ../libigl/cmake/../include/igl/read_triangle_mesh.h
  ../libigl/cmake/../include/igl/reorder.cpp
  ../libigl/cmake/../include/igl/reorder.h
  ../libigl/cmake/../include/igl/slice.cpp
  ../libigl/cmake/../include/igl/slice.h
- ../libigl/cmake/../include/igl/slice_mask.cpp
- ../libigl/cmake/../include/igl/slice_mask.h
- ../libigl/cmake/../include/igl/slice_sorted.cpp
- ../libigl/cmake/../include/igl/slice_sorted.h
  ../libigl/cmake/../include/igl/sort.cpp
  ../libigl/cmake/../include/igl/sort.h
  ../libigl/cmake/../include/igl/sortrows.cpp
  ../libigl/cmake/../include/igl/sortrows.h
- ../libigl/cmake/../include/igl/tinyply.cpp
- ../libigl/cmake/../include/igl/tinyply.h
+ ../libigl/cmake/../include/igl/triangle_triangle_adjacency.cpp
+ ../libigl/cmake/../include/igl/triangle_triangle_adjacency.h
+ ../libigl/cmake/../include/igl/unique_edge_map.cpp
+ ../libigl/cmake/../include/igl/unique_edge_map.h
  ../libigl/cmake/../include/igl/unique_rows.cpp
  ../libigl/cmake/../include/igl/unique_rows.h
- ../libigl/cmake/../include/igl/verbose.h
+ ../libigl/cmake/../include/igl/unique_simplices.cpp
+ ../libigl/cmake/../include/igl/unique_simplices.h
+ ../libigl/cmake/../include/igl/vertex_triangle_adjacency.cpp
+ ../libigl/cmake/../include/igl/vertex_triangle_adjacency.h
  /Users/ilenelu/Documents/Research/data-driven simulation/spinxform_opengl/src/Mesh.cpp
 CMakeFiles/core.dir/src/Quaternion.cpp.o
  ../include/Quaternion.h

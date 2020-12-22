@@ -8,6 +8,8 @@
 #include <sstream>
 #include <cmath>
 #include <ctime>
+#include <set>
+#include <map>
 #include "Mesh.h"
 #include "LinearSolver.h"
 #include "EigenSolver.h"
@@ -247,6 +249,9 @@ void Mesh :: normalizeSolution( void )
 void Mesh :: read( const string& filename )
 // loads a triangle mesh in Wavefront OBJ format
 {
+   // set default to boundary free
+   has_boundary = false;
+   
    // open mesh file
    ifstream in( filename.c_str() );
    if( !in.is_open() )
@@ -257,18 +262,9 @@ void Mesh :: read( const string& filename )
       exit( 1 );
    }
 
-   // Eigen::MatrixXd V;
-   // Eigen::MatrixXi F;
-   // // Load input meshes
-   // igl::readOBJ(filename,V,F);
-
-   // vector<vector<int>> boundary_loop;
-   // vector<int> boundary_vertices;
-   // igl::boundary_loop(F, boundary_loop);
-   // flatten(boundary_loop,boundary_vertices);
-
    // temporary list of vertex coordinates
-   vector<Vector> uv;
+   vector<vector<double>> V, TC;
+   vector<vector<int>> F, FTC;
 
    // parse mesh file
    string s;
@@ -285,8 +281,8 @@ void Mesh :: read( const string& filename )
 
          line >> x >> y >> z;
 
-         vertices.push_back( Quaternion( 0., x, y, z ));
-         newVertices.push_back( Quaternion( 0., x, y, z ));
+         vector<double> v = {x,y,z};
+         V.emplace_back(v);
       }
       if( token == "vt" ) // texture coordinate
       {
@@ -294,11 +290,13 @@ void Mesh :: read( const string& filename )
 
          line >> u >> v;
 
-         uv.push_back( Vector( u, v, 0. ));
+         vector<double> tc = {u,v};
+         TC.emplace_back(tc);
       }
       else if( token == "f" ) // face
       {
-         Face triangle;
+         // Face triangle;
+         vector<int> fv,ftc;
 
          // iterate over vertices
          for( int i = 0; i < 3; i++ )
@@ -315,16 +313,84 @@ void Mesh :: read( const string& filename )
                index >> I[j];
             }
 
-            triangle.vertex[i] = I[0]-1;
+            fv.emplace_back(I[0]-1);
 
             if( I[1] != -1 )
             {
-               triangle.uv[i] = uv[ I[1]-1 ];
+               ftc.emplace_back(I[1]-1);
             }
          }
-
-         faces.push_back( triangle );
+         F.emplace_back(fv);
+         FTC.emplace_back(ftc);
       }
+   }
+
+   // Construct F as Eigen Matrix
+   Eigen::MatrixXi FMat(F.size(),F[0].size());
+   for (int i = 0; i < F.size(); i++) {
+      Eigen::RowVectorXi f(3);
+      f << F[i][0],F[i][1],F[i][2];
+      FMat.row(i) = f;
+   }
+
+   // boundary vertices
+   vector<vector<int>> boundary_loop;
+   set<int> boundary_vertices;
+   igl::boundary_loop(FMat, boundary_loop);
+   for (int i = 0; i < boundary_loop.size(); i++) {
+      for (int j = 0; j < boundary_loop[i].size(); j++) {
+         boundary_vertices.emplace(boundary_loop[i][j]);
+      }
+   }
+
+   if (!boundary_vertices.empty()) {
+      has_boundary = true;
+      // Re-indexing V with internal vertices followed by boundary vertices
+      map<int,int> vertex_old_new_index_map;
+      vector<vector<double>> internal_v, boundary_v;
+      for (int i = 0; i < V.size(); i++) {
+         if (boundary_vertices.find(i) != boundary_vertices.end()) {
+            // boundary vertex
+            vertex_old_new_index_map[i] = boundary_v.size();
+            boundary_v.emplace_back(V[i]);
+         } else {
+            // internal vertex
+            vertex_old_new_index_map[i] = internal_v.size();
+            internal_v.emplace_back(V[i]);
+         }
+      }
+      V.clear();
+      V.reserve(internal_v.size() + boundary_v.size());
+      V.insert(V.end(), internal_v.begin(), internal_v.end());
+      V.insert(V.end(), boundary_v.begin(), boundary_v.end() );
+      
+      // update vertex_old_new_index_map
+      int num_internal_vertices = internal_v.size();
+      for (int vi : boundary_vertices) {
+         vertex_old_new_index_map[vi] += num_internal_vertices;
+      }
+
+      // update F
+      for (int i = 0; i < F.size(); i++) {
+         for (int j = 0; j < F[i].size(); j++) {
+            F[i][j] = vertex_old_new_index_map[F[i][j]];
+         }
+      }
+   }
+
+   for (int i = 0; i < V.size(); i++) {
+      vertices.emplace_back(Quaternion(0.,V[i][0],V[i][1],V[i][2]));
+      newVertices.emplace_back(Quaternion(0.,V[i][0],V[i][1],V[i][2]));
+   }
+
+   for (int i = 0; i < F.size(); i++) {
+      Face triangle;
+      for (int j = 0; j < 3; j++) {
+         triangle.vertex[j] = F[i][j];
+         vector<double> tc = TC[FTC[i][j]];
+         triangle.uv[j] = Vector(tc[0],tc[1],0.);
+      }
+      faces.emplace_back(triangle);
    }
 
    // allocate space for mesh attributes

@@ -34,12 +34,6 @@ inline void removeMean( std::vector<T>& v )
    }
 }
 
-inline void flatten(const std::vector<std::vector<T>> &orig, std::vector<T> &result)
-{
-   for (const auto &v: orig) {
-      result.insert(result.end(), v.begin(), v.end());
-   }
-}
 
 inline bool bigEndian( void )
 {
