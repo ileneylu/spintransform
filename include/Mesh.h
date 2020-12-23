@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <string>
+#include <Eigen/Core>
 #include "Quaternion.h"
 #include "QuaternionMatrix.h"
 #include "Image.h"
@@ -48,6 +49,10 @@ class Mesh
       // values in the  range [0,1] get mapped (linearly) to values
       // in the range [-scale,scale]
 
+      void setBoundaryTangent();
+      // set original boundary tangent vectors t and target tangent
+      // vectors tTilda for each boundary vertices;
+
       void updateDeformation( void );
       // computes a conformal deformation using the current rho
 
@@ -56,6 +61,9 @@ class Mesh
 
       double area( int i );
       // returns area of triangle i in the original mesh
+
+      bool hasBoundary;
+      // indicates whether the mesh has boundaries
 
       vector<Face> faces;
       // list of triangles as indices into vertex list
@@ -66,9 +74,12 @@ class Mesh
       vector<double> rho;
       // controls change in curvature (one value per face)
 
-   protected:
+      vector<vector<int>> boundary_loop;
+      int numBoundaryVertices;
+      Eigen::MatrixXd t;
+      Eigen::MatrixXd tTilda;
 
-      bool hasBoundary;
+   protected:
 
       vector<Quaternion> lambda;
       // local similarity transformation (one value per vertex)
@@ -82,11 +93,16 @@ class Mesh
       QuaternionMatrix L; // Laplace matrix
       QuaternionMatrix E; // matrix for eigenvalue problem
 
+      Eigen::MatrixXd U; // Boundary matrix
+
       void buildEigenvalueProblem( void );
       void buildPoissonProblem( void );
       void buildLaplacian( void );
       void buildOmega( void );
       void normalizeSolution( void );
+
+      // temporary function to handle boundary case
+      void initBoundaryTangent();
 };
 
 #endif

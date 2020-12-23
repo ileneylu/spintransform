@@ -20,6 +20,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <Eigen/Core>
 #include "Quaternion.h"
 #include "pcg/sparse_matrix.h"
 
@@ -40,6 +41,9 @@ class QuaternionMatrix
       const SparseMatrixd& toReal( void );
       // returns real matrix where each quaternion becomes a 4x4 block
 
+      const Eigen::MatrixXd& toEigenReal(void);
+      // returns real Eigen type matrix where each quaternion becomes a 4x4 block
+
    protected:
       typedef std::pair<int,int> EntryIndex; // NOTE: column THEN row! (makes it easier to build compressed format)
       typedef std::map<EntryIndex,Quaternion> EntryMap;
@@ -55,6 +59,9 @@ class QuaternionMatrix
 
       SparseMatrixd A;
       // real representation
+
+      Eigen::MatrixXd M;
+      // real Eigen representation
 };
 
 #endif

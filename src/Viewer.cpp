@@ -39,6 +39,12 @@ void Viewer :: init( int* argc, char** argv )
 
    mode = renderShaded;
    computeVertexNormals();
+
+   if (mesh.hasBoundary)
+   {
+      mesh.setBoundaryTangent();
+   }
+
    mesh.setCurvatureChange( image, 5. );
 
    updateDisplayList();

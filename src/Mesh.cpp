@@ -74,6 +74,84 @@ void Mesh :: setCurvatureChange( const Image& image, const double scale )
    }
 }
 
+void Mesh :: initBoundaryTangent()
+{
+   t.resize(numBoundaryVertices, 3);
+   tTilda.resize(numBoundaryVertices, 3);
+   int curRow = 0;
+   for (int i = 0; i < boundary_loop.size(); i++) 
+   {
+      int boundaryLength = boundary_loop[i].size();
+      for (int j = 0; j < boundaryLength; j++) 
+      {
+         int vNext = boundary_loop[i][(j+1)%boundaryLength];
+         int vPrev = boundary_loop[i][(j-1)%boundaryLength];
+         Quaternion diff = vertices[vNext] - vertices[vPrev];
+         Eigen::RowVectorXd row(3); 
+         row << (diff.im())[0],(diff.im())[1],(diff.im())[2];
+         t.row(curRow) = row;
+         tTilda.row(curRow) = row;
+         curRow++;
+      }
+   }
+}
+
+void Mesh :: setBoundaryTangent()
+{
+   initBoundaryTangent();
+   int nV = vertices.size();
+   int nB = t.rows();
+   int nI = nV - nB;
+
+   // Build W
+   QuaternionMatrix W;
+   W.resize(nV,nV);
+
+   for (int i = 0; i < nI; i++) 
+   {
+      W(i,i) = Quaternion(1.,0.,0.,0.);
+   }
+   for (int i = 0; i < nB; i++) 
+   {
+      double theta;
+      Quaternion w;
+      if (((tTilda.row(i) + t.row(i)).norm()< 0.00001) ||
+          ((tTilda.row(i) - t.row(i)).norm()< 0.00001)) 
+      {
+         // tTilda = +- t
+         theta = 0;
+         w = Quaternion(0.,1.,0.,0.);
+      } else {
+         double theta = acos(t.row(i).dot(tTilda.row(i)));
+         Eigen::RowVector3d ti = t.row(i);
+         Eigen::RowVector3d tTildai = tTilda.row(i);
+         Eigen::Vector3d wVec = ti.cross(tTildai/sin(theta));
+         w = Quaternion(0.,wVec[0],wVec[1],wVec[2]);
+      }
+
+      W(i+nI,i+nI) = Quaternion(cos(theta/2),0.,0.,0.) + sin(theta/2) * w;
+   }
+
+   // Build C
+   Eigen::MatrixXd C = Eigen::MatrixXd::Zero(4*numBoundaryVertices, 2*numBoundaryVertices);
+   for (int i = 0; i < tTilda.rows(); i++) {
+      C(4*i,2*i) = 1;
+      C(4*i+1,2*i+1) = tTilda(i,0);
+      C(4*i+2,2*i+1) = tTilda(i,1);
+      C(4*i+3,2*i+1) = tTilda(i,2);
+   }
+
+   // Build IC
+   int numInternalVertices = vertices.size()-numBoundaryVertices;
+   Eigen::MatrixXd I = Eigen::MatrixXd::Identity(4*numInternalVertices,4*numInternalVertices);
+   Eigen::MatrixXd IC = Eigen::MatrixXd::Zero(4*vertices.size(), 4*numInternalVertices+2*numBoundaryVertices);
+   IC.topLeftCorner(4*numInternalVertices,4*numInternalVertices) = I;
+   IC.bottomRightCorner(4*numBoundaryVertices, 2*numBoundaryVertices) = C;
+
+   // build U
+   Eigen::MatrixXd U = W.toEigenReal() * IC;
+}
+
 double Mesh :: area( int i )
 // returns area of triangle i in the original mesh
 {
@@ -250,7 +328,7 @@ void Mesh :: read( const string& filename )
 // loads a triangle mesh in Wavefront OBJ format
 {
    // set default to boundary free
-   has_boundary = false;
+   hasBoundary = false;
    
    // open mesh file
    ifstream in( filename.c_str() );
@@ -334,17 +412,18 @@ void Mesh :: read( const string& filename )
    }
 
    // boundary vertices
-   vector<vector<int>> boundary_loop;
    set<int> boundary_vertices;
+   numBoundaryVertices = 0;
    igl::boundary_loop(FMat, boundary_loop);
    for (int i = 0; i < boundary_loop.size(); i++) {
+      numBoundaryVertices += boundary_loop[i].size();
       for (int j = 0; j < boundary_loop[i].size(); j++) {
          boundary_vertices.emplace(boundary_loop[i][j]);
       }
    }
 
    if (!boundary_vertices.empty()) {
-      has_boundary = true;
+      hasBoundary = true;
       // Re-indexing V with internal vertices followed by boundary vertices
       map<int,int> vertex_old_new_index_map;
       vector<vector<double>> internal_v, boundary_v;

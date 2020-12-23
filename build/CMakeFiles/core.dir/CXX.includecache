@@ -29,6 +29,8 @@ vector
 -
 string
 -
+Eigen/Core
+-
 Quaternion.h
 ../include/Quaternion.h
 QuaternionMatrix.h
@@ -48,6 +50,8 @@ map
 vector
 -
 iostream
+-
+Eigen/Core
 -
 Quaternion.h
 ../include/Quaternion.h

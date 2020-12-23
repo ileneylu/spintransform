@@ -15,6 +15,7 @@
 #include "Mesh.h"
 #include "Image.h"
 #include "Quaternion.h"
+#include <Eigen/Core>
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
