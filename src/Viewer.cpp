@@ -42,10 +42,10 @@ void Viewer :: init( int* argc, char** argv )
 
    if (mesh.hasBoundary)
    {
-      mesh.setBoundaryTangent();
+      mesh.setBoundaryCondition();
    }
 
-   mesh.setCurvatureChange( image, 5. );
+   //mesh.setCurvatureChange( image, 5. );
 
    updateDisplayList();
 
@@ -184,7 +184,7 @@ void Viewer :: view( int value )
 
 void Viewer :: mTransform( void )
 {
-   reloadImage();
+   //reloadImage();
    mesh.updateDeformation();
    computeVertexNormals();
    updateDisplayList();

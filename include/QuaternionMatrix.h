@@ -21,6 +21,7 @@
 #include <vector>
 #include <iostream>
 #include <Eigen/Core>
+#include <Eigen/Sparse>
 #include "Quaternion.h"
 #include "pcg/sparse_matrix.h"
 
@@ -41,7 +42,7 @@ class QuaternionMatrix
       const SparseMatrixd& toReal( void );
       // returns real matrix where each quaternion becomes a 4x4 block
 
-      const Eigen::MatrixXd& toEigenReal(void);
+      const Eigen::SparseMatrix<double>& toEigenReal(void);
       // returns real Eigen type matrix where each quaternion becomes a 4x4 block
 
    protected:
@@ -60,7 +61,8 @@ class QuaternionMatrix
       SparseMatrixd A;
       // real representation
 
-      Eigen::MatrixXd M;
+      // Eigen::MatrixXd M;
+      Eigen::SparseMatrix<double> M;
       // real Eigen representation
 };
 

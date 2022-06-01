@@ -31,6 +31,8 @@ string
 -
 Eigen/Core
 -
+Eigen/Sparse
+-
 Quaternion.h
 ../include/Quaternion.h
 QuaternionMatrix.h
@@ -52,6 +54,8 @@ vector
 iostream
 -
 Eigen/Core
+-
+Eigen/Sparse
 -
 Quaternion.h
 ../include/Quaternion.h
@@ -1944,7 +1948,5 @@ Utility.h
 igl/readOBJ.h
 -
 igl/boundary_loop.h
--
-Eigen/Core
 -
 

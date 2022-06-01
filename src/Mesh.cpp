@@ -10,6 +10,7 @@
 #include <ctime>
 #include <set>
 #include <map>
+
 #include "Mesh.h"
 #include "LinearSolver.h"
 #include "EigenSolver.h"
@@ -17,7 +18,6 @@
 
 #include <igl/readOBJ.h>
 #include <igl/boundary_loop.h>
-#include <Eigen/Core>
 
 void Mesh :: updateDeformation( void )
 {
@@ -25,7 +25,45 @@ void Mesh :: updateDeformation( void )
 
    // solve eigenvalue problem for local similarity transformation lambda
    buildEigenvalueProblem();
-   EigenSolver::solve( E, lambda );
+   
+   // add U to Eigenvalue Problem
+   Eigen::SparseMatrix<double> EEigen = E.toEigenReal();
+
+   if (hasBoundary) {
+      EEigen = U.transpose() * EEigen * U;
+   }
+
+   SparseMatrixd EFinal;
+
+   EFinal.resize(EEigen.rows());
+   for (int k=0; k<EEigen.outerSize(); k++)
+   {
+      for (Eigen::SparseMatrix<double>::InnerIterator it(EEigen,k); it; ++it)
+      {
+         EFinal.set_element(it.row(),it.col(),it.value());
+      }
+   }
+
+   lambda.resize(EEigen.rows()/4);
+   EigenSolver::solve( EFinal, lambda );
+   std::cout << "Eigen problem solved";
+
+   if (hasBoundary) {
+      vector<double> lambdaReal(4*lambda.size());
+      toReal(lambda, lambdaReal);
+      Eigen::VectorXd lambdaEigen(lambdaReal.size());
+      for (int i = 0; i < lambdaReal.size(); i++) {
+         lambdaEigen[i] = lambdaReal[i];
+      }
+      Eigen::VectorXd newLambda = U*lambdaEigen;
+      lambdaReal.resize(newLambda.size());
+      for (int i = 0; i < newLambda.size(); i++) {
+         lambdaReal[i] = newLambda[i];
+      }
+      lambda.resize(lambdaReal.size()/4);
+      toQuat(lambdaReal,lambda);
+   }
+
 
    // solve Poisson problem for new vertex positions
    buildPoissonProblem();
@@ -34,6 +72,32 @@ void Mesh :: updateDeformation( void )
 
    int t1 = clock();
    cout << "time: " << (t1-t0)/(double) CLOCKS_PER_SEC << "s" << endl;
+}
+
+void Mesh :: toReal( const vector<Quaternion>& uQuat,
+                             vector<double>& uReal )
+// converts vector from quaternion- to real-valued entries
+{
+   for( size_t i = 0; i < uQuat.size(); i++ )
+   {
+      uReal[i*4+0] = uQuat[i].re();   // real
+      uReal[i*4+1] = uQuat[i].im().x; // i
+      uReal[i*4+2] = uQuat[i].im().y; // j
+      uReal[i*4+3] = uQuat[i].im().z; // k
+   }
+}
+
+void Mesh :: toQuat( const vector<double>& uReal,
+                             vector<Quaternion>& uQuat )
+// converts vector from real- to quaternion-valued entries
+{
+   for( size_t i = 0; i < uQuat.size(); i++ )
+   {
+      uQuat[i] = Quaternion( uReal[i*4+0],   // real
+                             uReal[i*4+1],   // i
+                             uReal[i*4+2],   // j
+                             uReal[i*4+3] ); // k
+   }
 }
 
 void Mesh :: resetDeformation( void )
@@ -74,6 +138,31 @@ void Mesh :: setCurvatureChange( const Image& image, const double scale )
    }
 }
 
+void Mesh :: setCurvatureChange()
+// sets rho values by interpreting "image" as a square image
+// in the range [0,1] x [0,1] and mapping values to the
+// surface via vertex texture coordinates -- grayscale
+// values in the  range [0,1] get mapped (linearly) to values
+// in the range [-scale,scale]
+{
+   for( size_t i = 0; i < faces.size(); i++ )
+   {
+      // get handle to current value of rho
+      rho[i] = 0.;
+
+      // compute average value over the face
+      for( int j = 0; j < 3; j++ )
+      {
+         int vId = faces[i].vertex[j];
+         // vId = vertex_old_new_index_map[vId];
+         rho[i] += rhoV[vId] / 3.;
+      }
+
+      // map value to range [-scale,scale]
+      rho[i] = rho[i];
+   }
+}
+
 void Mesh :: initBoundaryTangent()
 {
    t.resize(numBoundaryVertices, 3);
@@ -85,10 +174,11 @@ void Mesh :: initBoundaryTangent()
       for (int j = 0; j < boundaryLength; j++) 
       {
          int vNext = boundary_loop[i][(j+1)%boundaryLength];
-         int vPrev = boundary_loop[i][(j-1)%boundaryLength];
+         int vPrev = boundary_loop[i][(j+boundaryLength-1)%boundaryLength];
          Quaternion diff = vertices[vNext] - vertices[vPrev];
          Eigen::RowVectorXd row(3); 
          row << (diff.im())[0],(diff.im())[1],(diff.im())[2];
+         row = row/row.norm();
          t.row(curRow) = row;
          tTilda.row(curRow) = row;
          curRow++;
@@ -96,7 +186,7 @@ void Mesh :: initBoundaryTangent()
    }
 }
 
-void Mesh :: setBoundaryTangent()
+void Mesh :: setBoundaryCondition()
 {
    initBoundaryTangent();
    int nV = vertices.size();
@@ -107,49 +197,59 @@ void Mesh :: setBoundaryTangent()
    QuaternionMatrix W;
    W.resize(nV,nV);
 
+   // W(i,i) = 1 for internal vertices
    for (int i = 0; i < nI; i++) 
    {
       W(i,i) = Quaternion(1.,0.,0.,0.);
    }
+   // W(i,i) = cos(theta_i/2) + w_i * sin(theta_i/2) for boundary vertices
    for (int i = 0; i < nB; i++) 
    {
-      double theta;
-      Quaternion w;
+      Quaternion wii;
       if (((tTilda.row(i) + t.row(i)).norm()< 0.00001) ||
           ((tTilda.row(i) - t.row(i)).norm()< 0.00001)) 
       {
-         // tTilda = +- t
-         theta = 0;
-         w = Quaternion(0.,1.,0.,0.);
+         // if tTilda = +- t
+         double theta = 0;
+         Quaternion w = Quaternion(0.,1.,0.,0.);
+         wii = Quaternion(cos(theta/2.),0.,0.,0.) + sin(theta/2.) * w;
       } else {
          double theta = acos(t.row(i).dot(tTilda.row(i)));
          Eigen::RowVector3d ti = t.row(i);
          Eigen::RowVector3d tTildai = tTilda.row(i);
          Eigen::Vector3d wVec = ti.cross(tTildai/sin(theta));
-         w = Quaternion(0.,wVec[0],wVec[1],wVec[2]);
+         Quaternion w = Quaternion(0.,wVec[0],wVec[1],wVec[2]);
+         wii = Quaternion(cos(theta/2.),0.,0.,0.) + sin(theta/2.) * w;
       }
 
-      W(i+nI,i+nI) = Quaternion(cos(theta/2),0.,0.,0.) + sin(theta/2) * w;
+      W(i+nI,i+nI) = wii;
    }
 
-   // Build C
-   Eigen::MatrixXd C = Eigen::MatrixXd::Zero(4*numBoundaryVertices, 2*numBoundaryVertices);
-   for (int i = 0; i < tTilda.rows(); i++) {
-      C(4*i,2*i) = 1;
-      C(4*i+1,2*i+1) = tTilda(i,0);
-      C(4*i+2,2*i+1) = tTilda(i,1);
-      C(4*i+3,2*i+1) = tTilda(i,2);
+   typedef Eigen::Triplet<double> T;
+   std::vector<T> tripletList;
+   tripletList.reserve(4*nV);
+   for (int i = 0; i < 4*nI; i++)
+   {
+      tripletList.push_back(T(i,i,1));
    }
-
-   // Build IC
-   int numInternalVertices = vertices.size()-numBoundaryVertices;
-   Eigen::MatrixXd I = Eigen::MatrixXd::Identity(4*numInternalVertices,4*numInternalVertices);
-   Eigen::MatrixXd IC = Eigen::MatrixXd::Zero(4*vertices.size(), 4*numInternalVertices+2*numBoundaryVertices);
-   IC.topLeftCorner(4*numInternalVertices,4*numInternalVertices) = I;
-   IC.bottomRightCorner(4*numBoundaryVertices, 2*numBoundaryVertices) = C;
+   for (int i = 0; i < nB; i++)
+   {
+      tripletList.push_back(T(4*nI+4*i,4*nI+2*i,1));
+      tripletList.push_back(T(4*nI+4*i+1,4*nI+2*i+1,1));
+      tripletList.push_back(T(4*nI+4*i+2,4*nI+2*i+1,1));
+      tripletList.push_back(T(4*nI+4*i+3,4*nI+2*i+1,1));
+   }
+   Eigen::SparseMatrix<double> IC(4*nV,4*nI+2*nB);
+   IC.setFromTriplets(tripletList.begin(), tripletList.end());
 
    // build U
-   Eigen::MatrixXd U = W.toEigenReal() * IC;
+   cout << "building U" << endl;
+   Eigen::SparseMatrix<double> WEigen = W.toEigenReal();
+   cout << "W: " << WEigen.rows() << ", " << WEigen.cols() << endl;
+   cout << "IC: " << IC.rows() << ", " << IC.cols() << endl;
+
+   U =  WEigen * IC;
+   cout << "U: " << U.rows() << ", " << U.cols() << endl;
 }
 
 double Mesh :: area( int i )
@@ -411,7 +511,7 @@ void Mesh :: read( const string& filename )
       FMat.row(i) = f;
    }
 
-   // boundary vertices
+   // get boundary vertices
    set<int> boundary_vertices;
    numBoundaryVertices = 0;
    igl::boundary_loop(FMat, boundary_loop);
@@ -425,15 +525,14 @@ void Mesh :: read( const string& filename )
    if (!boundary_vertices.empty()) {
       hasBoundary = true;
       // Re-indexing V with internal vertices followed by boundary vertices
-      map<int,int> vertex_old_new_index_map;
       vector<vector<double>> internal_v, boundary_v;
       for (int i = 0; i < V.size(); i++) {
          if (boundary_vertices.find(i) != boundary_vertices.end()) {
-            // boundary vertex
+            // if current vertex is a boundary vertex
             vertex_old_new_index_map[i] = boundary_v.size();
             boundary_v.emplace_back(V[i]);
          } else {
-            // internal vertex
+            // if current vertex is an internal vertex
             vertex_old_new_index_map[i] = internal_v.size();
             internal_v.emplace_back(V[i]);
          }
@@ -453,6 +552,13 @@ void Mesh :: read( const string& filename )
       for (int i = 0; i < F.size(); i++) {
          for (int j = 0; j < F[i].size(); j++) {
             F[i][j] = vertex_old_new_index_map[F[i][j]];
+         }
+      }
+      
+      // update boundary loop
+      for (int i = 0; i < boundary_loop.size(); i++) {
+         for (int j = 0; j < boundary_loop[i].size(); j++) {
+            boundary_loop[i][j] = vertex_old_new_index_map[boundary_loop[i][j]];
          }
       }
    }
@@ -477,6 +583,32 @@ void Mesh :: read( const string& filename )
    omega.resize( vertices.size() );
    rho.resize( faces.size() );
    normalizeSolution();
+}
+
+void Mesh :: readCurvatureChange( const string& filename)
+{
+   cout << "reading curvature" << endl;
+   ifstream in( filename.c_str() );
+   if( !in.is_open() )
+   {
+      cerr << "Error: couldn't open file ";
+      cerr << filename;
+      cerr << " for input!" << endl;
+      exit( 1 );
+   }
+
+   string s;
+   while( getline( in, s ))
+   {
+      stringstream line( s );
+      double val;
+      line >> val;
+      rhoV.emplace_back(val);
+   }
+
+   cout << "rhoV: "<< endl;
+   cout << rhoV[0] << endl;
+   cout << rhoV.size() << endl;
 }
 
 void Mesh :: write( const string& filename )

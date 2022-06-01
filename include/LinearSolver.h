@@ -40,6 +40,11 @@ class LinearSolver
       // solves the linear system Ax = b where A is positive-semidefinite
       // uses incomplete Cholesky preconditioner by default
 
+      static void solve( SparseMatrixd& A,
+                     vector<Quaternion>& x,
+                     const vector<Quaternion>& b,
+                     bool precondition );
+
       static void toReal( const vector<Quaternion>& uQuat,
                           vector<double>& uReal );
       // converts vector from quaternion- to real-valued entries

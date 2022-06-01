@@ -10,6 +10,13 @@ CMakeFiles/core.dir/src/EigenSolver.cpp.o
  ../include/pcg/sparse_matrix.h
  ../include/pcg/util.h
  ../libigl/cmake/../external/eigen/Eigen/Core
+ ../libigl/cmake/../external/eigen/Eigen/IterativeLinearSolvers
+ ../libigl/cmake/../external/eigen/Eigen/OrderingMethods
+ ../libigl/cmake/../external/eigen/Eigen/Sparse
+ ../libigl/cmake/../external/eigen/Eigen/SparseCholesky
+ ../libigl/cmake/../external/eigen/Eigen/SparseCore
+ ../libigl/cmake/../external/eigen/Eigen/SparseLU
+ ../libigl/cmake/../external/eigen/Eigen/SparseQR
  ../libigl/cmake/../external/eigen/Eigen/src/Core/Array.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayBase.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayWrapper.h
@@ -138,9 +145,71 @@ CMakeFiles/core.dir/src/EigenSolver.cpp.o
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Macros.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Memory.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Meta.h
+ ../libigl/cmake/../external/eigen/Eigen/src/Core/util/NonMPL2.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/ReenableStupidWarnings.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/StaticAssert.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/XprHelper.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Amd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Eigen_Colamd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Ordering.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/AmbiVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/CompressedStorage.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/MappedSparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseAssign.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseBlock.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseColEtree.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCompressedBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDenseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDiagonalProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDot.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseFuzzy.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMap.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrixBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparsePermutation.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRedux.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRef.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSelfAdjointView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTranspose.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTriangularView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseUtil.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/TriangularSolver.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLUImpl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Memory.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Structs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Utils.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pivotL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pruneL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseQR/SparseQR.h
  ../libigl/cmake/../external/eigen/Eigen/src/misc/blas.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseBinaryOps.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseUnaryOps.h
@@ -163,6 +232,13 @@ CMakeFiles/core.dir/src/LinearSolver.cpp.o
  ../include/pcg/sparse_matrix.h
  ../include/pcg/util.h
  ../libigl/cmake/../external/eigen/Eigen/Core
+ ../libigl/cmake/../external/eigen/Eigen/IterativeLinearSolvers
+ ../libigl/cmake/../external/eigen/Eigen/OrderingMethods
+ ../libigl/cmake/../external/eigen/Eigen/Sparse
+ ../libigl/cmake/../external/eigen/Eigen/SparseCholesky
+ ../libigl/cmake/../external/eigen/Eigen/SparseCore
+ ../libigl/cmake/../external/eigen/Eigen/SparseLU
+ ../libigl/cmake/../external/eigen/Eigen/SparseQR
  ../libigl/cmake/../external/eigen/Eigen/src/Core/Array.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayBase.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayWrapper.h
@@ -291,9 +367,71 @@ CMakeFiles/core.dir/src/LinearSolver.cpp.o
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Macros.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Memory.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Meta.h
+ ../libigl/cmake/../external/eigen/Eigen/src/Core/util/NonMPL2.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/ReenableStupidWarnings.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/StaticAssert.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/XprHelper.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Amd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Eigen_Colamd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Ordering.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/AmbiVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/CompressedStorage.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/MappedSparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseAssign.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseBlock.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseColEtree.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCompressedBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDenseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDiagonalProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDot.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseFuzzy.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMap.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrixBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparsePermutation.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRedux.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRef.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSelfAdjointView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTranspose.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTriangularView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseUtil.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/TriangularSolver.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLUImpl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Memory.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Structs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Utils.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pivotL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pruneL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseQR/SparseQR.h
  ../libigl/cmake/../external/eigen/Eigen/src/misc/blas.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseBinaryOps.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseUnaryOps.h
@@ -653,6 +791,13 @@ CMakeFiles/core.dir/src/QuaternionMatrix.cpp.o
  ../include/pcg/sparse_matrix.h
  ../include/pcg/util.h
  ../libigl/cmake/../external/eigen/Eigen/Core
+ ../libigl/cmake/../external/eigen/Eigen/IterativeLinearSolvers
+ ../libigl/cmake/../external/eigen/Eigen/OrderingMethods
+ ../libigl/cmake/../external/eigen/Eigen/Sparse
+ ../libigl/cmake/../external/eigen/Eigen/SparseCholesky
+ ../libigl/cmake/../external/eigen/Eigen/SparseCore
+ ../libigl/cmake/../external/eigen/Eigen/SparseLU
+ ../libigl/cmake/../external/eigen/Eigen/SparseQR
  ../libigl/cmake/../external/eigen/Eigen/src/Core/Array.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayBase.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayWrapper.h
@@ -781,9 +926,71 @@ CMakeFiles/core.dir/src/QuaternionMatrix.cpp.o
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Macros.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Memory.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Meta.h
+ ../libigl/cmake/../external/eigen/Eigen/src/Core/util/NonMPL2.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/ReenableStupidWarnings.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/StaticAssert.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/XprHelper.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Amd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Eigen_Colamd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Ordering.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/AmbiVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/CompressedStorage.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/MappedSparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseAssign.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseBlock.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseColEtree.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCompressedBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDenseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDiagonalProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDot.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseFuzzy.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMap.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrixBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparsePermutation.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRedux.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRef.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSelfAdjointView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTranspose.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTriangularView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseUtil.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/TriangularSolver.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLUImpl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Memory.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Structs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Utils.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pivotL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pruneL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseQR/SparseQR.h
  ../libigl/cmake/../external/eigen/Eigen/src/misc/blas.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseBinaryOps.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseUnaryOps.h
@@ -807,6 +1014,13 @@ CMakeFiles/core.dir/src/Viewer.cpp.o
  ../include/pcg/sparse_matrix.h
  ../include/pcg/util.h
  ../libigl/cmake/../external/eigen/Eigen/Core
+ ../libigl/cmake/../external/eigen/Eigen/IterativeLinearSolvers
+ ../libigl/cmake/../external/eigen/Eigen/OrderingMethods
+ ../libigl/cmake/../external/eigen/Eigen/Sparse
+ ../libigl/cmake/../external/eigen/Eigen/SparseCholesky
+ ../libigl/cmake/../external/eigen/Eigen/SparseCore
+ ../libigl/cmake/../external/eigen/Eigen/SparseLU
+ ../libigl/cmake/../external/eigen/Eigen/SparseQR
  ../libigl/cmake/../external/eigen/Eigen/src/Core/Array.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayBase.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/ArrayWrapper.h
@@ -935,9 +1149,71 @@ CMakeFiles/core.dir/src/Viewer.cpp.o
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Macros.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Memory.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/Meta.h
+ ../libigl/cmake/../external/eigen/Eigen/src/Core/util/NonMPL2.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/ReenableStupidWarnings.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/StaticAssert.h
  ../libigl/cmake/../external/eigen/Eigen/src/Core/util/XprHelper.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h
+ ../libigl/cmake/../external/eigen/Eigen/src/IterativeLinearSolvers/SolveWithGuess.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Amd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Eigen_Colamd.h
+ ../libigl/cmake/../external/eigen/Eigen/src/OrderingMethods/Ordering.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCholesky/SimplicialCholesky_impl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/AmbiVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/CompressedStorage.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/MappedSparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseAssign.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseBlock.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseColEtree.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCompressedBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDenseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDiagonalProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseDot.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseFuzzy.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMap.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseMatrixBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparsePermutation.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseProduct.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRedux.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseRef.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSelfAdjointView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSolverBase.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTranspose.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseTriangularView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseUtil.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseVector.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/SparseView.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseCore/TriangularSolver.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLUImpl.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Memory.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Structs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_Utils.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_column_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pivotL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_pruneL.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseLU/SparseLU_relax_snode.h
+ ../libigl/cmake/../external/eigen/Eigen/src/SparseQR/SparseQR.h
  ../libigl/cmake/../external/eigen/Eigen/src/misc/blas.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseBinaryOps.h
  ../libigl/cmake/../external/eigen/Eigen/src/plugins/ArrayCwiseUnaryOps.h

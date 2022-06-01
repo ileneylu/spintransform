@@ -46,6 +46,46 @@ void LinearSolver :: solve( QuaternionMatrix& A,
    toQuat( result, x );
 }
 
+void LinearSolver :: solve( SparseMatrixd& A,
+                     vector<Quaternion>& x,
+                     const vector<Quaternion>& b,
+                     bool precondition )
+// solves the linear system Ax = b where A is positive-semidefinite
+{
+   if( precondition == false )
+   {
+      cerr << "WARNING: using basic CG solver with diagonal preconditioner -- may be (very) slow!" << endl;
+   }
+
+   int n = x.size();
+   vector<double> result( n*4 );
+   vector<double> rhs( n*4 );
+
+   // convert right-hand side to real values
+   toReal( b, rhs );
+   //rhs = b;
+
+   // setup solver
+   PCGSolver<double> pcg;
+   const int max_iterations = 2000;
+   const double tolerance_factor = 1e-7;
+   const double mic_parameter = .97;
+   const double min_diagonal_ratio = .25;
+   double residual;
+   int iterations;
+
+   pcg.set_solver_parameters( tolerance_factor, max_iterations, mic_parameter, min_diagonal_ratio, precondition );
+   
+   // solve real linear system
+   pcg.solve( A, rhs, result, residual, iterations );
+
+   cout << "Linear solver achieved a residual of " << residual;
+   cout << " after " << iterations << " iterations." << endl;
+
+   // convert solution back to quaternions
+   toQuat( result, x );
+}
+
 void LinearSolver :: toReal( const vector<Quaternion>& uQuat,
                              vector<double>& uReal )
 // converts vector from quaternion- to real-valued entries

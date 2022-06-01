@@ -118,6 +118,8 @@ void Image :: read( const char* _filename )
    if( header.dataTypeCode != uncompressedGrayscale ||
        header.bitsPerPixel != 8 )
    {
+      cerr << header.dataTypeCode << "," << uncompressedGrayscale << endl;
+      cerr << header.bitsPerPixel << endl;
       cerr << "Error: input must be uncompressed grayscale image with 8 bits per pixel." << endl;
       exit( 1 );
    }
@@ -143,7 +145,7 @@ void Image :: read( const char* _filename )
    pixels.resize( w*h );
    for( int i = 0; i < w*h; i++ )
    {
-      pixels[i] = (double) pixelData[i] / 255.;
+      pixels[i] = (double) pixelData[i] / 256.;
    }
 }
 

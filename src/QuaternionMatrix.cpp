@@ -84,13 +84,15 @@ const SparseMatrixd& QuaternionMatrix :: toReal( void )
    return A;
 }
 
-const Eigen::MatrixXd& QuaternionMatrix :: toEigenReal( void )
+const Eigen::SparseMatrix<double>& QuaternionMatrix :: toEigenReal( void )
 // returns real Eigen type matrix where each quaternion becomes a 4x4 block
 {
    double Q[4][4];
 
    M.resize(4*m,4*n);
    // convert quaternionic matrix to real matrix
+   typedef Eigen::Triplet<double> T;
+   std::vector<T> tripletList;
    for( EntryMap::iterator e = data.begin(); e != data.end(); e++ )
    {
       int i = e->first.second;
@@ -102,11 +104,13 @@ const Eigen::MatrixXd& QuaternionMatrix :: toEigenReal( void )
       {
          if( Q[u][v] != 0. )
          {
-            M(i*4+u, j*4+v) = Q[u][v];
+            //M(i*4+u, j*4+v) = Q[u][v];
+            tripletList.push_back(T(i*4+u,j*4+v,Q[u][v]));
          }
       }
    }
 
+   M.setFromTriplets(tripletList.begin(), tripletList.end());
    return M;
 }
 

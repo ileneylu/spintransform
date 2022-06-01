@@ -20,6 +20,7 @@
 #include <vector>
 #include <string>
 #include <Eigen/Core>
+#include <Eigen/Sparse>
 #include "Quaternion.h"
 #include "QuaternionMatrix.h"
 #include "Image.h"
@@ -42,6 +43,8 @@ class Mesh
       void write( const string& filename );
       // saves a triangle mesh in Wavefront OBJ format
 
+      void readCurvatureChange( const string& filename);
+
       void setCurvatureChange( const Image& image, const double scale );
       // sets rho values by interpreting "image" as a square image
       // in the range [0,1] x [0,1] and mapping values to the
@@ -49,9 +52,10 @@ class Mesh
       // values in the  range [0,1] get mapped (linearly) to values
       // in the range [-scale,scale]
 
-      void setBoundaryTangent();
-      // set original boundary tangent vectors t and target tangent
-      // vectors tTilda for each boundary vertices;
+      void setCurvatureChange( );
+
+      void setBoundaryCondition( void );
+      // setup matrix U that handles boundary condition
 
       void updateDeformation( void );
       // computes a conformal deformation using the current rho
@@ -93,7 +97,10 @@ class Mesh
       QuaternionMatrix L; // Laplace matrix
       QuaternionMatrix E; // matrix for eigenvalue problem
 
-      Eigen::MatrixXd U; // Boundary matrix
+      Eigen::SparseMatrix<double> U; // Boundary matrix
+
+      map<int,int> vertex_old_new_index_map;
+      vector<double> rhoV;
 
       void buildEigenvalueProblem( void );
       void buildPoissonProblem( void );
@@ -103,6 +110,12 @@ class Mesh
 
       // temporary function to handle boundary case
       void initBoundaryTangent();
+
+      void toReal( const vector<Quaternion>& uQuat,
+                             vector<double>& uReal );
+
+      void toQuat( const vector<double>& uReal,
+                             vector<Quaternion>& uQuat );
 };
 
 #endif

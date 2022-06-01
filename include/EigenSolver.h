@@ -46,9 +46,15 @@ class EigenSolver
       // solves the eigenvalue problem Ax = cx for the
       // eigenvector x with the smallest eigenvalue c
 
+      static void solve( SparseMatrixd& A,
+                           vector<Quaternion>& x );
+
    protected:
       static void normalize( vector<Quaternion>& x );
       // rescales x to have unit length
+
+      static void toReal( const vector<Quaternion>& uQuat,
+                             vector<double>& uReal );
 };
 
 #endif
