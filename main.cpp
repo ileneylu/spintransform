@@ -5,15 +5,17 @@
 //
 
 #include <iostream>
+#include <string.h>
 #include "Viewer.h"
 
 using namespace std;
 
 int main( int argc, char **argv )
 {
+
    if( argc < 3 || argc > 5 )
    {
-      cerr << "usage: " << argv[0] << " mesh.obj image.tga [result.obj]" << endl;
+      cerr << "usage: " << argv[0] << " mesh.obj mode image.tga [result.obj]" << endl;
       return 1;
    }
 
